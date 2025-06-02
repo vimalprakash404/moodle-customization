@@ -32,8 +32,7 @@ jobs:
       - name: Add Android platform
         run: ionic cordova platform add android
 
-      - name: Build APK in production mode
-        run: npm run prod:android
+      
 
       - name: Set up Java 17
         uses: actions/setup-java@v3
@@ -55,6 +54,8 @@ jobs:
       - name: Build APK with Gradle (optional, if npm run prod:android does not build APK)
         working-directory: platforms/android
         run: ./gradlew assembleRelease
+      - name: Build APK in production mode
+        run: npm run prod:android
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
