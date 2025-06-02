@@ -1,50 +1,32 @@
-name: Build Ionic Android App
+name: Ionic Android Build
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
-  build-android:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Build Docker Image
+        run: docker build -t ionic-android-builder .
 
-      - name: Build Docker image for Ionic
+      - name: Run Ionic Build inside Docker
         run: |
-          docker build -t ionic-android-builder .
+          docker run --rm \
+            -v ${{ github.workspace }}:/app \
+            -w /app \
+            ionic-android-builder /bin/sh ./build-android.sh
 
-      - name: Run Ionic Android Build inside Docker
-        run: |
-          docker run --rm -v ${{ github.workspace }}:/app -w /app ionic-android-builder /bin/sh -c "
-            echo 'Installing dependencies...'
-            npm install
-      
-            echo 'Installing Ionic CLI...'
-            npm uninstall -g ionic || true
-            npm install -g @ionic/cli
-      
-            echo 'Preparing Android platform...'
-            ionic cordova platform rm android || true
-            ionic cordova platform add android
-      
-            echo 'Building Android APK and AAB...'
-            ionic cordova build android --release -- --packageType=bundle
-            ionic cordova build android --release
-          "
-
-
-      - name: Upload Android Artifacts (APK & AAB)
+      - name: Upload APK and AAB
         uses: actions/upload-artifact@v4
         with:
-          name: android-build-artifacts
+          name: android-build
           path: |
-            platforms/android/app/build/outputs/apk/release/app-release.apk
-            platforms/android/app/build/outputs/bundle/release/app-release.aab
+            platforms/android/app/build/outputs/apk/release/*.apk
+            platforms/android/app/build/outputs/bundle/release/*.aab
