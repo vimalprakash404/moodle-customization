@@ -51,9 +51,7 @@ jobs:
         with:
           gradle-version: 8.5
 
-      - name: Build APK with Gradle (optional, if npm run prod:android does not build APK)
-        working-directory: platforms/android
-        run: ./gradlew assembleRelease
+        
       - name: Build APK in production mode
         run: npm run prod:android
 
