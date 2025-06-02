@@ -22,4 +22,4 @@ RUN wget https://services.gradle.org/distributions/gradle-8.5-bin.zip -P /tmp &&
     echo 'export PATH=/opt/gradle/gradle-8.5/bin:$PATH' >> ~/.bashrc
 
 # Set the default shell as bash
-ENTRYPOINT ["bash"]
+ENTRYPOINT ["/bin/bash"]
