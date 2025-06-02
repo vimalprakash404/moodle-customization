@@ -23,22 +23,23 @@ jobs:
 
       - name: Run Ionic Android Build inside Docker
         run: |
-          docker run --rm -v ${{ github.workspace }}:/app -w /app ionic-android-builder bash -c "
+          docker run --rm -v ${{ github.workspace }}:/app -w /app ionic-android-builder /bin/sh -c "
             echo 'Installing dependencies...'
             npm install
-
+      
             echo 'Installing Ionic CLI...'
             npm uninstall -g ionic || true
             npm install -g @ionic/cli
-
+      
             echo 'Preparing Android platform...'
             ionic cordova platform rm android || true
             ionic cordova platform add android
-
+      
             echo 'Building Android APK and AAB...'
             ionic cordova build android --release -- --packageType=bundle
             ionic cordova build android --release
           "
+
 
       - name: Upload Android Artifacts (APK & AAB)
         uses: actions/upload-artifact@v4
