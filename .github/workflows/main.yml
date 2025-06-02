@@ -12,8 +12,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/upload-artifact@v4
-
+        uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -36,12 +35,15 @@ jobs:
             ionic cordova platform rm android || true
             ionic cordova platform add android
 
-            echo 'Building Android App Bundle (.aab)...'
+            echo 'Building Android APK and AAB...'
             ionic cordova build android --release -- --packageType=bundle
+            ionic cordova build android --release
           "
 
-      - name: Upload AAB Artifact
-        uses: actions/upload-artifact@v3
+      - name: Upload Android Artifacts (APK & AAB)
+        uses: actions/upload-artifact@v4
         with:
-          name: app-release-bundle
-          path: platforms/android/app/build/outputs/bundle/release/app-release.aab
+          name: android-build-artifacts
+          path: |
+            platforms/android/app/build/outputs/apk/release/app-release.apk
+            platforms/android/app/build/outputs/bundle/release/app-release.aab
