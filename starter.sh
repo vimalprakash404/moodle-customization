@@ -31,6 +31,8 @@ npm install -g @ionic/cli
 ionic cordova platform rm android
 ionic cordova platform add android
 
+ ionic cordova resources android
+
 # Build the APK in production mode
 echo "Building APK..."
 npm run prod:android

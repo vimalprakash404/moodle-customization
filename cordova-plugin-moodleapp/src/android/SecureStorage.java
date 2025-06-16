@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.ictkerala.paatshala;
+package org.ictkerala.paatshala;
 
 import android.os.Build;
 import android.util.Log;
