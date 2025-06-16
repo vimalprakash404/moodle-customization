@@ -32,7 +32,7 @@ ionic cordova platform rm android
 ionic cordova platform add android
 
  ionic cordova resources android
-
+ ionic cordova resources android
 # Build the APK in production mode
 echo "Building APK..."
 npm run prod:android
@@ -41,3 +41,9 @@ ionic cordova build android --release -- --packageType=bundle
 
 docker cp <container_id>:/tmp/moodle-customization/platforms/android/app/build/outputs/apk/debug/app-debug.apk ./app-debug.apk
 docker cp <container_id>:/tmp/moodle-customization/platforms/android/app/build/outputs/bundle/release/app-release.aab ./app-release.abb
+
+
+
+docker build -t my-ionic-dev .
+
+docker run -it --rm my-ionic-dev

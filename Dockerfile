@@ -16,10 +16,10 @@ RUN curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh |
     echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> ~/.bashrc && \
     echo 'nvm install 20 && nvm use 20' >> ~/.bashrc
 
-# Install Gradle 8.0
-RUN wget https://services.gradle.org/distributions/gradle-8.0-bin.zip -P /tmp && \
-    unzip /tmp/gradle-8.0-bin.zip -d /opt/gradle && \
-    echo 'export PATH=/opt/gradle/gradle-8.0/bin:$PATH' >> ~/.bashrc
+# Install Gradle 8.5
+RUN wget https://services.gradle.org/distributions/gradle-8.5-bin.zip -P /tmp && \
+    unzip /tmp/gradle-8.5-bin.zip -d /opt/gradle && \
+    echo 'export PATH=/opt/gradle/gradle-8.5/bin:$PATH' >> ~/.bashrc
 
 
 # Install Android SDK Build Tools 35.0.0
@@ -27,8 +27,5 @@ RUN yes | sdkmanager --licenses && \
     sdkmanager "build-tools;35.0.0" "platforms;android-34" "platform-tools"
 ENV PATH=$ANDROID_HOME/build-tools/35.0.0:$ANDROID_HOME/platform-tools:$PATH
 
-docker build -t my-ionic-dev .
-
-docker run -it --rm my-ionic-dev
 # Set the default shell as bash
 ENTRYPOINT ["/bin/bash"]

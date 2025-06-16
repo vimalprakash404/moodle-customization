@@ -26,5 +26,8 @@
     "[xml]": {
         "editor.defaultFormatter": "redhat.vscode-xml"
     },
+    "[dockerfile]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-containers"
+    },
 
 }
