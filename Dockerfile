@@ -27,6 +27,8 @@ RUN yes | sdkmanager --licenses && \
     sdkmanager "build-tools;35.0.0" "platforms;android-34" "platform-tools"
 ENV PATH=$ANDROID_HOME/build-tools/35.0.0:$ANDROID_HOME/platform-tools:$PATH
 
+docker build -t my-ionic-dev .
 
+docker run -it --rm my-ionic-dev
 # Set the default shell as bash
 ENTRYPOINT ["/bin/bash"]
